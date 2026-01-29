@@ -1,0 +1,20 @@
+{
+    "required": true,
+    "package": "kr.pyke.displayname.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "server.EntitySelectorParserMixin",
+        "server.PlayerMixin",
+        "server.ServerGamePacketListenerImplMixin",
+        "server.ServerPlayerMixin"
+    ],
+    "client": [
+        "client.EntityArgumentMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+	}
+}
