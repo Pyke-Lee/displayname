@@ -5,6 +5,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import kr.pyke.displayname.client.cache.DisplayNameCache;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.selector.EntitySelectorParser;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,8 +34,11 @@ public class EntityArgumentMixin {
                 }
             });
 
-            Collection<String> candidates = DisplayNameCache.CACHE.values();
-            if (candidates == null || candidates.isEmpty()) { return; }
+            var connection = Minecraft.getInstance().getConnection();
+            if (connection == null) { return; }
+
+            Collection<PlayerInfo> onlinePlayers = connection.getOnlinePlayers();
+            if (onlinePlayers.isEmpty()) { return; }
 
             final String remainingRaw = builder.getRemaining() == null ? "" : builder.getRemaining();
             final String remaining = remainingRaw.toLowerCase(Locale.ROOT);
@@ -41,7 +46,8 @@ public class EntityArgumentMixin {
 
             var added = new HashSet<String>();
 
-            for (String plain : candidates) {
+            for (PlayerInfo info : onlinePlayers) {
+                String plain = DisplayNameCache.CACHE.get(info.getProfile().getId());
                 if (plain == null || plain.isEmpty()) { continue; }
 
                 String lower = plain.toLowerCase(Locale.ROOT);
