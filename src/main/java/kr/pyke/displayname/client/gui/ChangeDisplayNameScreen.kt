@@ -11,7 +11,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,8 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.aperso.composite.core.ComposeScreen
-import kr.pyke.displayname.network.payload.c2s.C2S_ChangeDisplayNamePayload
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
+import kr.pyke.displayname.network.packet.c2s.C2S_ChangeDisplayName
 import net.minecraft.client.Minecraft
 
 object ChangeDisplayNameScreen {
@@ -70,7 +72,7 @@ object ChangeDisplayNameScreen {
                 }
 
                 isWaitingResponse.value = true
-                ClientPlayNetworking.send(C2S_ChangeDisplayNamePayload(inputName))
+                C2S_ChangeDisplayName.send(inputName)
                 globalErrorMessage.value = null
             }
 

@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 public class ModCreativeTab {
     private ModCreativeTab() { }
 
-    public static final ResourceKey<CreativeModeTab> DISPLAYNAME_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(DisplayName.MOD_ID, "creative_tab_displayname"));
+    public static final ResourceKey<CreativeModeTab> DISPLAYNAME_TAB_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, new ResourceLocation(DisplayName.MOD_ID, "creative_tab_displayname"));
 
     public static final CreativeModeTab CREATIVE_TAB = FabricItemGroup.builder()
         .icon(() -> new ItemStack(ModItem.ID_CARD))

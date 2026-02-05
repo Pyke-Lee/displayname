@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 	id "org.jetbrains.kotlin.jvm" version "2.3.0"
 	id("org.jetbrains.kotlin.plugin.compose") version "2.3.0"
@@ -12,7 +12,7 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = project.archives_base_name
+	archivesName = "${project.archives_base_name}-${project.minecraft_version}"
 }
 
 repositories {
@@ -41,7 +41,7 @@ dependencies {
 	implementation(compose.materialIconsExtended)
 
 	// Composite (JitPack)
-	modImplementation("com.github.apersomany:composite:${project.composite_version}")
+	modImplementation("com.github.Pyke-Lee:composite:${project.composite_version}")
 
 	implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 	include("org.jetbrains.compose.material:material-icons-extended:1.7.3")
@@ -62,12 +62,12 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 17
 }
 
 tasks.withType(KotlinCompile).configureEach {
 	kotlinOptions {
-		jvmTarget = "21"
+		jvmTarget = "17"
 		freeCompilerArgs += "-P=plugin:org.jetbrains.kotlin.plugin.compose:generateFunctionKeyMetaClasses=true"
 	}
 }
@@ -75,8 +75,8 @@ tasks.withType(KotlinCompile).configureEach {
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {

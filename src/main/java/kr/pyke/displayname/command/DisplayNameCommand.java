@@ -4,9 +4,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import kr.pyke.displayname.network.payload.s2c.S2C_OpenChangeDisplayNameScreenPayload;
+import kr.pyke.displayname.network.packet.s2c.S2C_OpenChangeDisplayNameScreen;
 import kr.pyke.displayname.util.Utils;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -44,7 +43,7 @@ public class DisplayNameCommand {
     private static int openScreenChangeDisplayName(CommandContext<CommandSourceStack> context) {
         ServerPlayer serverPlayer = context.getSource().getPlayer();
 
-        ServerPlayNetworking.send(Objects.requireNonNull(serverPlayer), new S2C_OpenChangeDisplayNameScreenPayload());
+        S2C_OpenChangeDisplayNameScreen.send(Objects.requireNonNull(serverPlayer));
 
         return 1;
     }

@@ -2,13 +2,11 @@ package kr.pyke.displayname.util;
 
 import kr.pyke.PykeLib;
 import kr.pyke.displayname.data.DisplayNameData;
-import kr.pyke.displayname.network.payload.s2c.S2C_SendSingleDisplayNamePayload;
+import kr.pyke.displayname.network.packet.s2c.S2C_SendSingleDisplayName;
 import kr.pyke.util.constants.COLOR;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -40,9 +38,9 @@ public class Utils {
         DisplayNameData data = DisplayNameData.getServerState(server);
         data.setDisplayName(target.getUUID(), displayName);
 
-        List<ServerPlayer> serverPlayers = server.getPlayerList().getPlayers();
-        S2C_SendSingleDisplayNamePayload packet = new S2C_SendSingleDisplayNamePayload(target.getUUID(), displayName);
-        serverPlayers.forEach(p -> ServerPlayNetworking.send(p, packet));
+        for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+            S2C_SendSingleDisplayName.send(p, target.getUUID(), displayName);
+        }
 
         Utils.refreshTabList(target);
 

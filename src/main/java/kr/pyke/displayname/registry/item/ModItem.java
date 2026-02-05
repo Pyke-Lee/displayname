@@ -13,6 +13,6 @@ public class ModItem {
     public static final Item ID_CARD = new IDCard(new Item.Properties().stacksTo(99));
 
     public static void register() {
-        Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(DisplayName.MOD_ID, "id_card"), ID_CARD);
+        Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(DisplayName.MOD_ID, "id_card"), ID_CARD);
     }
 }

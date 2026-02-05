@@ -3,13 +3,12 @@ package kr.pyke.displayname.data;
 import com.mojang.authlib.GameProfile;
 import kr.pyke.displayname.DisplayName;
 import kr.pyke.displayname.util.Utils;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.saveddata.SavedData;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.*;
 
@@ -18,7 +17,7 @@ public class DisplayNameData extends SavedData {
     private final Map<UUID, String> displayNames = new HashMap<>();
     private final Map<String, UUID> displayNamesReverse = new HashMap<>();
 
-    public static DisplayNameData load(CompoundTag tag, HolderLookup.Provider provider) {
+    public static DisplayNameData load(CompoundTag tag) {
         DisplayNameData data = new DisplayNameData();
 
         CompoundTag displayNameTag = tag.getCompound("displayNames");
@@ -36,7 +35,7 @@ public class DisplayNameData extends SavedData {
     }
 
     @Override
-    public @NotNull CompoundTag save(CompoundTag tag, HolderLookup.Provider provider) {
+    public @NonNull CompoundTag save(CompoundTag tag) {
         CompoundTag displayNameTag = new CompoundTag();
 
         displayNames.forEach((uuid, displayName) -> displayNameTag.putString(uuid.toString(), displayName));
@@ -48,7 +47,7 @@ public class DisplayNameData extends SavedData {
     public static DisplayNameData getServerState(MinecraftServer server) {
         ServerLevel serverLevel = server.overworld();
 
-        return serverLevel.getDataStorage().computeIfAbsent(new SavedData.Factory<>(DisplayNameData::new, DisplayNameData::load, null), FILE_NAME);
+        return serverLevel.getDataStorage().computeIfAbsent(DisplayNameData::load, DisplayNameData::new, FILE_NAME);
     }
 
     public String getDisplayName(UUID uuid) { return displayNames.get(uuid); }
