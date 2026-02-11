@@ -17,7 +17,10 @@ public class Utils {
     private Utils() { }
 
     public static void refreshTabList(ServerPlayer player) {
-        EnumSet<ClientboundPlayerInfoUpdatePacket.Action> actions = EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME);
+        EnumSet<ClientboundPlayerInfoUpdatePacket.Action> actions = EnumSet.of(
+            ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME,
+            ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LISTED
+        );
         ClientboundPlayerInfoUpdatePacket packet = new ClientboundPlayerInfoUpdatePacket(actions, List.of(player));
         player.server.getPlayerList().broadcastAll(packet);
     }
@@ -40,11 +43,12 @@ public class Utils {
         DisplayNameData data = DisplayNameData.getServerState(server);
         data.setDisplayName(target.getUUID(), displayName);
 
-        List<ServerPlayer> serverPlayers = server.getPlayerList().getPlayers();
         S2C_SendSingleDisplayNamePayload packet = new S2C_SendSingleDisplayNamePayload(target.getUUID(), displayName);
-        serverPlayers.forEach(p -> ServerPlayNetworking.send(p, packet));
+        for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+            ServerPlayNetworking.send(p, packet);
+        }
 
-        Utils.refreshTabList(target);
+        refreshTabList(target);
 
         PykeLib.sendSystemMessage(target, COLOR.LIME.getColor(), String.format("&f이름이 &7%s&f(으)로 변경되었습니다.", displayName));
     }
