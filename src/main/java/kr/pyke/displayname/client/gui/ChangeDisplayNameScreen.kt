@@ -24,7 +24,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.aperso.composite.core.ComposeScreen
-import kr.pyke.displayname.network.packet.c2s.C2S_ChangeDisplayName
+import kr.pyke.displayname.client.cache.DisplayNameCache
+import kr.pyke.displayname.network.payload.c2s.C2S_ChangeDisplayNamePayload
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.minecraft.client.Minecraft
 
 object ChangeDisplayNameScreen {
@@ -127,9 +129,11 @@ object ChangeDisplayNameScreen {
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        player.displayName?.let {
+                        player.let {
+                            val currentName = DisplayNameCache.CACHE[it.uuid] ?: it.name.string
+
                             Text(
-                                text = "현재 이름: ${it.string}",
+                                text = "현재 이름: $currentName",
                                 color = ColorTextSub,
                                 fontSize = 12.sp,
                                 modifier = Modifier.align(Alignment.Start)
