@@ -11,17 +11,14 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(PlayerRenderer.class)
 public class PlayerRendererMixin {
     @ModifyVariable(
-        method = "renderNameTag(Lnet/minecraft/client/player/AbstractClientPlayer;Lnet/minecraft/network/chat/Component;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IF)V",
+        method = "renderNameTag(Lnet/minecraft/client/player/AbstractClientPlayer;Lnet/minecraft/network/chat/Component;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
         at = @At("HEAD"),
         argsOnly = true
     )
     private Component modifyDisplayName(Component name, AbstractClientPlayer player) {
-        String realName = player.getGameProfile().getName();
         String displayName = DisplayNameCache.CACHE.get(player.getUUID());
 
-        if (displayName == null || displayName.isEmpty()) {
-            return Component.literal(realName);
-        }
+        if (displayName == null || displayName.isEmpty()) { return name; }
 
         return Component.literal(displayName);
     }

@@ -17,14 +17,14 @@ public final class IDCard extends Item {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack item = player.getItemInHand(hand);
-        if (level.isClientSide) { DisplayNameClient.openChageDisplayNameScreen(); }
+        if (level.isClientSide) { DisplayNameClient.openChangeDisplayNameScreen(); }
 
         return InteractionResultHolder.sidedSuccess(item, level.isClientSide);
     }
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
-        if (context.getLevel().isClientSide) { DisplayNameClient.openChageDisplayNameScreen(); }
+        if (context.getLevel().isClientSide) { DisplayNameClient.openChangeDisplayNameScreen(); }
 
         return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
     }

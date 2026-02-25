@@ -25,8 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.aperso.composite.core.ComposeScreen
 import kr.pyke.displayname.client.cache.DisplayNameCache
-import kr.pyke.displayname.network.payload.c2s.C2S_ChangeDisplayNamePayload
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
+import kr.pyke.displayname.network.packet.c2s.C2S_ChangeDisplayName
 import net.minecraft.client.Minecraft
 
 object ChangeDisplayNameScreen {

@@ -11,7 +11,7 @@ public class DisplayNameClient implements ClientModInitializer {
         DisplayNamePacket.registerClient();
     }
 
-    public static void openChageDisplayNameScreen() {
+    public static void openChangeDisplayNameScreen() {
         Minecraft.getInstance().setScreen(ChangeDisplayNameScreen.create());
     }
 }
