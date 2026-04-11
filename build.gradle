@@ -1,11 +1,6 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
 	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
 	id 'maven-publish'
-	id "org.jetbrains.kotlin.jvm" version "2.3.0"
-	id("org.jetbrains.kotlin.plugin.compose") version "2.3.0"
-	id("org.jetbrains.compose") version "1.9.3"
 }
 
 version = project.mod_version
@@ -16,9 +11,6 @@ base {
 }
 
 repositories {
-    mavenCentral()
-	google()
-	maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
 	maven { url = uri("https://jitpack.io") }
 }
 
@@ -30,24 +22,6 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
-
-	// Compose & Composite 라이브러리
-	implementation(compose.desktop.currentOs)
-	implementation(compose.material3)
-	implementation(compose.runtime)
-	implementation(compose.foundation)
-	implementation(compose.ui)
-	implementation(compose.materialIconsExtended)
-
-	// Composite (JitPack)
-	modImplementation("com.github.apersomany:composite:${project.composite_version}")
-
-	implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
-	include("org.jetbrains.compose.material:material-icons-extended:1.7.3")
-
-	implementation("org.jetbrains.compose.material:material-icons-core:1.7.3")
-	include("org.jetbrains.compose.material:material-icons-core:1.7.3")
 
 	// Pyke Lib
 	modImplementation "com.github.Pyke-Lee:PykeLib:${project.pyke_lib_version}"
@@ -63,13 +37,6 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
-}
-
-tasks.withType(KotlinCompile).configureEach {
-	kotlinOptions {
-		jvmTarget = "21"
-		freeCompilerArgs += "-P=plugin:org.jetbrains.kotlin.plugin.compose:generateFunctionKeyMetaClasses=true"
-	}
 }
 
 java {
