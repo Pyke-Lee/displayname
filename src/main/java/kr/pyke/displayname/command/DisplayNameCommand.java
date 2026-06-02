@@ -23,6 +23,15 @@ public class DisplayNameCommand {
                 )
             )
         );
+
+        dispatcher.register(Commands.literal("displayname")
+            .requires(source -> source.hasPermission(2))
+            .then(Commands.argument("target", EntityArgument.player())
+                .then(Commands.argument("displayName", StringArgumentType.greedyString())
+                    .executes(DisplayNameCommand::changeDisplayName)
+                )
+            )
+        );
     }
 
     private static int changeDisplayName(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {

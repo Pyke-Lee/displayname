@@ -3,14 +3,11 @@ package kr.pyke.displayname.util;
 import kr.pyke.PykeLib;
 import kr.pyke.displayname.data.DisplayNameData;
 import kr.pyke.displayname.network.payload.s2c.S2C_SendSingleDisplayNamePayload;
-import kr.pyke.util.constants.COLOR;
+import kr.pyke.type.COLOR;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
-import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.world.entity.Entity;
 
 import java.util.EnumSet;
 import java.util.List;
