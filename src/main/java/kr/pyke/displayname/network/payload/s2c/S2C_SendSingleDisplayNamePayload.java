@@ -8,13 +8,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public record S2C_SendSingleDisplayNamePayload(UUID uuid, String displayName) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<S2C_SendSingleDisplayNamePayload> ID = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(DisplayName.MOD_ID, "c2s_displayname_single"));
+    public static final CustomPacketPayload.Type<S2C_SendSingleDisplayNamePayload> ID = new CustomPacketPayload.Type<>(DisplayName.id("c2s_displayname_single"));
 
     @Override public @NotNull CustomPacketPayload.Type<? extends CustomPacketPayload> type() { return ID; }
 

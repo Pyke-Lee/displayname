@@ -47,7 +47,7 @@ public class EntityArgumentMixin {
             var added = new HashSet<String>();
 
             for (PlayerInfo info : onlinePlayers) {
-                String plain = DisplayNameCache.CACHE.get(info.getProfile().getId());
+                String plain = DisplayNameCache.CACHE.get(info.getProfile().id());
                 if (plain == null || plain.isEmpty()) { continue; }
 
                 String lower = plain.toLowerCase(Locale.ROOT);

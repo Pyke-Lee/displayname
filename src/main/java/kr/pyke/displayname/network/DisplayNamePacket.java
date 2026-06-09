@@ -10,8 +10,8 @@ public class DisplayNamePacket {
 
     public static void registerCodec() {
         // Server → Client
-        PayloadTypeRegistry.playS2C().register(S2C_SendSingleDisplayNamePayload.ID, S2C_SendSingleDisplayNamePayload.STREAM_CODEC);
-        PayloadTypeRegistry.playS2C().register(S2C_SendBulkDisplayNamePayload.ID, S2C_SendBulkDisplayNamePayload.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(S2C_SendSingleDisplayNamePayload.ID, S2C_SendSingleDisplayNamePayload.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(S2C_SendBulkDisplayNamePayload.ID, S2C_SendBulkDisplayNamePayload.STREAM_CODEC);
 
         // Client → Server
     }

@@ -6,7 +6,7 @@
 	"description": "This mod allows you to change player display names via commands, seamlessly syncing the new nicknames across chat, tab lists, and nametags in real-time.",
 	"authors": [ "Pyke__Lee" ],
 	"contact": { },
-	"license": "LGPL 3.0",
+	"license": "ARR",
 	"icon": "assets/displayname/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -15,9 +15,9 @@
 	},
 	"mixins": [ "displayname.mixins.json" ],
 	"depends": {
-		"fabricloader": ">=0.17.4",
-		"minecraft": "~1.21.1",
-		"java": ">=21",
-		"fabric-api": "*"
+		"java": ">=25",
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~26.1.2",
+		"fabric-api": "0.147.0+26.1.2"
 	}
 }

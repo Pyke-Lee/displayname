@@ -14,7 +14,7 @@ public class ServerPlayerMixin {
     private void overrideTabListName(CallbackInfoReturnable<Component> cir) {
         ServerPlayer self = (ServerPlayer) (Object) this;
 
-        String displayName = DisplayNameData.getServerState(self.server).getDisplayName(self.getUUID());
+        String displayName = DisplayNameData.getServerState(self.level().getServer()).getDisplayName(self.getUUID());
 
         if (displayName != null && !displayName.isEmpty()) {
             cir.setReturnValue(Component.literal(displayName));

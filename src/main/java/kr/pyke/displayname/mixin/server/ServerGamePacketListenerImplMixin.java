@@ -20,11 +20,11 @@ public abstract class ServerGamePacketListenerImplMixin {
 
     @Inject(method = "broadcastChatMessage", at = @At("HEAD"), cancellable = true)
     private void injectDisplayNameToChat(PlayerChatMessage message, CallbackInfo ci) {
-        DisplayNameData data = DisplayNameData.getServerState(Objects.requireNonNull(this.player.getServer()));
+        DisplayNameData data = DisplayNameData.getServerState(Objects.requireNonNull(this.player.level().getServer()));
         String displayName = data.getDisplayName(this.player.getUUID());
 
         if (displayName != null && !displayName.isEmpty()) {
-            this.player.getServer().getPlayerList().broadcastChatMessage(message, this.player, ChatType.bind(ChatType.CHAT, this.player.level().registryAccess(), Component.literal(displayName)));
+            this.player.level().getServer().getPlayerList().broadcastChatMessage(message, this.player, ChatType.bind(ChatType.CHAT, this.player.level().registryAccess(), Component.literal(displayName)));
             ci.cancel();
         }
     }

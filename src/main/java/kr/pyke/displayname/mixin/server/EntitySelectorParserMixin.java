@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(EntitySelectorParser.class)
 public class EntitySelectorParserMixin {
-    @ModifyVariable(method = "parseNameOrUUID", at = @At("STORE"))
+    @ModifyVariable(method = "parseNameOrUUID", at = @At("STORE"), name = "name")
     private String replaceDisplayNameWithRealName(String name) {
         if (null == name || name.isEmpty()) { return ""; }
         if (DisplayName.SERVER_INSTANCE == null) { return name; }

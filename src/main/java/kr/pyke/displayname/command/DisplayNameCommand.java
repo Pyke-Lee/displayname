@@ -10,13 +10,15 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.PermissionLevel;
 
 public class DisplayNameCommand {
     private DisplayNameCommand() { }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext ctx, Commands.CommandSelection selection) {
         dispatcher.register(Commands.literal("이름변경")
-            .requires(source -> source.hasPermission(2))
+            .requires(source -> source.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.byId(2))))
             .then(Commands.argument("target", EntityArgument.player())
                 .then(Commands.argument("displayName", StringArgumentType.greedyString())
                     .executes(DisplayNameCommand::changeDisplayName)
@@ -25,7 +27,7 @@ public class DisplayNameCommand {
         );
 
         dispatcher.register(Commands.literal("displayname")
-            .requires(source -> source.hasPermission(2))
+            .requires(source -> source.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.byId(2))))
             .then(Commands.argument("target", EntityArgument.player())
                 .then(Commands.argument("displayName", StringArgumentType.greedyString())
                     .executes(DisplayNameCommand::changeDisplayName)
@@ -35,7 +37,7 @@ public class DisplayNameCommand {
     }
 
     private static int changeDisplayName(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        ServerPlayer serverPlayer = context.getSource().getPlayer();
+        ServerPlayer serverPlayer = context.getSource().getPlayerOrException();
         ServerPlayer target = EntityArgument.getPlayer(context, "target");
         String displayName = StringArgumentType.getString(context, "displayName");
 

@@ -8,7 +8,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public record S2C_SendBulkDisplayNamePayload(Map<UUID, String> displayNames) implements CustomPacketPayload {
-    public static final Type<S2C_SendBulkDisplayNamePayload> ID = new Type<>(ResourceLocation.fromNamespaceAndPath(DisplayName.MOD_ID, "c2s_displayname_bulk"));
+    public static final Type<S2C_SendBulkDisplayNamePayload> ID = new Type<>(DisplayName.id("c2s_displayname_bulk"));
 
     @Override public @NotNull CustomPacketPayload.Type<? extends CustomPacketPayload> type() { return ID; }
 
