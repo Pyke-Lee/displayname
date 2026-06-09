@@ -1,11 +1,11 @@
 object BuildConfig {
-    val JAVA_VERSION: Int = 25
+    const val JAVA_VERSION: Int = 25
 
-    val MINECRAFT_VERSION_RANGE: String = ">=26.1" // range: ">=26.1 <27.1"
+    const val MINECRAFT_VERSION_RANGE: String = ">=26.1" // range: ">=26.1 <27.1"
     val MINECRAFT_VERSION_MIN: String = MINECRAFT_VERSION_RANGE.split(" ")[0].replace(Regex("^[><=!\\[\\]()]+"), "")
-    val MINECRAFT_VERSION: String = "26.1.2"
-    val FABRIC_LOADER_VERSION: String = "0.19.2"
-    val FABRIC_API_VERSION: String = "0.147.0+26.1.2"
+    const val MINECRAFT_VERSION: String = "26.1.2"
+    const val FABRIC_LOADER_VERSION: String = "0.19.2"
+    const val FABRIC_API_VERSION: String = "0.147.0+26.1.2"
 
     // https://semver.org/
     var MOD_VERSION: String = "0.1.0"
@@ -14,6 +14,7 @@ object BuildConfig {
 plugins {
     id("java-library")
     id("net.fabricmc.fabric-loom") version("1.16.+")
+    id("maven-publish")
 }
 
 base {
@@ -98,4 +99,12 @@ fun createVersionString(): String {
     }
 
     return builder.toString()
+}
+
+configure<PublishingExtension> {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
 }
