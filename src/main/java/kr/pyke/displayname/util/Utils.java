@@ -31,7 +31,8 @@ public class Utils {
         updateDisplayName(target, displayName);
 
         String targetName = target.getGameProfile().name();
-        sender.level().getServer().getPlayerList().broadcastSystemMessage(Component.literal(String.format("§6[SYSTEM]§r §7%s§r님의 이름을 §7%s§r(으)로 변경하였습니다.", targetName, displayName)), false);
+        String message = String.format("§6[SYSTEM]§r §7%s§r님의 이름을 §7%s§r(으)로 변경하였습니다.", targetName, displayName);
+        sender.sendSystemMessage(Component.literal(message));
     }
 
     public static void updateDisplayName(ServerPlayer target, String displayName) {
@@ -47,6 +48,7 @@ public class Utils {
 
         refreshTabList(target);
 
-        target.level().getServer().getPlayerList().broadcastSystemMessage(Component.literal(String.format("§6[SYSTEM]§r 이름이 §7%s§r(으)로 변경되었습니다.", displayName)), false);
+        String message = String.format("§6[SYSTEM]§r 이름이 §7%s§r(으)로 변경되었습니다.", displayName);
+        target.sendSystemMessage(Component.literal(message), false);
     }
 }

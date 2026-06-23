@@ -8,7 +8,7 @@ object BuildConfig {
     const val FABRIC_API_VERSION: String = "0.147.0+26.1.2"
 
     // https://semver.org/
-    var MOD_VERSION: String = "0.1.0"
+    var MOD_VERSION: String = "0.1.1"
 }
 
 plugins {

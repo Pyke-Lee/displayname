@@ -1,6 +1,5 @@
 package kr.pyke.displayname.data;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import kr.pyke.displayname.DisplayName;
@@ -14,7 +13,9 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class DisplayNameData extends SavedData {
     private static final String FILE_NAME = "displayname";
@@ -35,8 +36,7 @@ public class DisplayNameData extends SavedData {
     private final Map<UUID, String> displayNames = new HashMap<>();
     private final Map<String, UUID> displayNamesReverse = new HashMap<>();
 
-    public DisplayNameData() {
-    }
+    public DisplayNameData() { }
 
     private DisplayNameData(Map<UUID, String> loaded) {
         loaded.forEach((uuid, displayName) -> {
