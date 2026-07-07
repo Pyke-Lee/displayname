@@ -1,11 +1,11 @@
 object BuildConfig {
     const val JAVA_VERSION: Int = 25
 
-    const val MINECRAFT_VERSION_RANGE: String = ">=26.1" // range: ">=26.1 <27.1"
+    const val MINECRAFT_VERSION_RANGE: String = ">=26.2" // range: ">=26.1 <27.1"
     val MINECRAFT_VERSION_MIN: String = MINECRAFT_VERSION_RANGE.split(" ")[0].replace(Regex("^[><=!\\[\\]()]+"), "")
-    const val MINECRAFT_VERSION: String = "26.1.2"
-    const val FABRIC_LOADER_VERSION: String = "0.19.2"
-    const val FABRIC_API_VERSION: String = "0.147.0+26.1.2"
+    const val MINECRAFT_VERSION: String = "26.2"
+    const val FABRIC_LOADER_VERSION: String = "0.19.3"
+    const val FABRIC_API_VERSION: String = "0.154.1+26.2"
 
     // https://semver.org/
     var MOD_VERSION: String = "0.1.1"
