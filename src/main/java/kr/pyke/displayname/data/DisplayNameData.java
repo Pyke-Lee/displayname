@@ -46,8 +46,7 @@ public class DisplayNameData extends SavedData {
     }
 
     public static DisplayNameData getServerState(MinecraftServer server) {
-        ServerLevel serverLevel = server.overworld();
-        return serverLevel.getDataStorage().computeIfAbsent(TYPE);
+        return server.getDataStorage().computeIfAbsent(TYPE);
     }
 
     public String getDisplayName(UUID uuid) { return displayNames.get(uuid); }
