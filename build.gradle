@@ -3,7 +3,7 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+version = "${project.mod_version}+mc${project.minecraft_version}"
 group = project.maven_group
 
 base {
@@ -11,7 +11,7 @@ base {
 }
 
 repositories {
-	maven { url = uri("https://jitpack.io") }
+
 }
 
 dependencies {
@@ -22,13 +22,10 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-
-	// Pyke Lib
-	modImplementation "com.github.Pyke-Lee:PykeLib:${project.pyke_lib_version}"
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property "version", project.mod_version
 
 	filesMatching("fabric.mod.json") {
 		expand "version": inputs.properties.version
