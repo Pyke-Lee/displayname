@@ -23,11 +23,11 @@ public class EntityArgumentMixin {
         return original.call(instance, builder, (Consumer<SuggestionsBuilder>) list -> {
             consumer.accept(list);
 
-            var vanilla = new java.util.HashSet<String>();
+            var vanilla = new HashSet<String>();
             list.build().getList().forEach(s -> {
                 String raw = s.getText();
                 if (raw == null) { return; }
-                String lowerRaw = raw.toLowerCase(java.util.Locale.ROOT);
+                String lowerRaw = raw.toLowerCase(Locale.ROOT);
                 vanilla.add(lowerRaw);
                 if (lowerRaw.length() >= 2 && lowerRaw.startsWith("\"") && lowerRaw.endsWith("\"")) {
                     vanilla.add(lowerRaw.substring(1, lowerRaw.length() - 1));
