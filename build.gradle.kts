@@ -1,19 +1,18 @@
 object BuildConfig {
-    const val JAVA_VERSION: Int = 25
+    const val JAVA_VERSION: Int = 21
 
-    const val MINECRAFT_VERSION_RANGE: String = ">=26.1" // range: ">=26.1 <27.1"
+    const val MINECRAFT_VERSION_RANGE: String = ">=1.21.11"
     val MINECRAFT_VERSION_MIN: String = MINECRAFT_VERSION_RANGE.split(" ")[0].replace(Regex("^[><=!\\[\\]()]+"), "")
-    const val MINECRAFT_VERSION: String = "26.1.2"
+    const val MINECRAFT_VERSION: String = "1.21.11"
     const val FABRIC_LOADER_VERSION: String = "0.19.2"
-    const val FABRIC_API_VERSION: String = "0.147.0+26.1.2"
+    const val FABRIC_API_VERSION: String = "0.141.5+1.21.11"
 
-    // https://semver.org/
     var MOD_VERSION: String = "0.1.2"
 }
 
 plugins {
     id("java-library")
-    id("net.fabricmc.fabric-loom") version("1.16.+")
+    id("net.fabricmc.fabric-loom-remap") version("1.17.+")
     id("maven-publish")
 }
 
@@ -26,12 +25,17 @@ version = createVersionString()
 
 repositories {
     mavenCentral()
+    maven("https://maven.parchmentmc.org")
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${BuildConfig.MINECRAFT_VERSION}")
-    implementation("net.fabricmc:fabric-loader:${BuildConfig.FABRIC_LOADER_VERSION}")
-    implementation("net.fabricmc.fabric-api:fabric-api:${BuildConfig.FABRIC_API_VERSION}")
+    mappings(loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.21.11:2025.12.20@zip")
+    })
+    modImplementation("net.fabricmc:fabric-loader:${BuildConfig.FABRIC_LOADER_VERSION}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${BuildConfig.FABRIC_API_VERSION}")
 
     testImplementation(platform("org.junit:junit-bom:6.0.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -53,7 +57,7 @@ tasks {
         }
     }
 
-    jar {
+    remapJar {
         //from("LICENSE")
         destinationDirectory.set(layout.buildDirectory.dir("mods"))
     }
@@ -78,7 +82,6 @@ fun createVersionString(): String {
     val builder = StringBuilder()
 
     val isReleaseBuild = project.hasProperty("build.release")
-    val buildId = System.getenv("GITHUB_RUN_NUMBER")
 
     if (isReleaseBuild) {
         builder.append(BuildConfig.MOD_VERSION)
@@ -88,15 +91,6 @@ fun createVersionString(): String {
     }
 
     builder.append("+mc").append(BuildConfig.MINECRAFT_VERSION)
-
-    if (!isReleaseBuild) {
-        if (buildId != null) {
-            builder.append("-build.${buildId}")
-        }
-        else {
-            builder.append("-local")
-        }
-    }
 
     return builder.toString()
 }

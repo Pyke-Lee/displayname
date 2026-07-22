@@ -27,7 +27,7 @@ public class DisplayNameData extends SavedData {
     ).apply(instance, DisplayNameData::new));
 
     public static final SavedDataType<DisplayNameData> TYPE = new SavedDataType<>(
-        Identifier.withDefaultNamespace(FILE_NAME),
+        FILE_NAME,
         DisplayNameData::new,
         CODEC,
         DataFixTypes.SAVED_DATA_MAP_DATA
@@ -46,7 +46,7 @@ public class DisplayNameData extends SavedData {
     }
 
     public static DisplayNameData getServerState(MinecraftServer server) {
-        return server.getDataStorage().computeIfAbsent(TYPE);
+        return server.overworld().getDataStorage().computeIfAbsent(TYPE);
     }
 
     public String getDisplayName(UUID uuid) { return displayNames.get(uuid); }
