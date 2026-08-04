@@ -16,7 +16,7 @@
 	"mixins": [ "displayname.mixins.json" ],
 	"depends": {
 		"java": ">=21",
-		"fabricloader": ">=0.19.2",
+		"fabricloader": ">=0.18.4",
 		"minecraft": "~1.21.11",
 		"fabric-api": ">=0.141.5+1.21.11"
 	}

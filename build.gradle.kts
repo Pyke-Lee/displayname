@@ -7,7 +7,7 @@ object BuildConfig {
     const val FABRIC_LOADER_VERSION: String = "0.19.2"
     const val FABRIC_API_VERSION: String = "0.141.5+1.21.11"
 
-    var MOD_VERSION: String = "0.1.2"
+    var MOD_VERSION: String = "0.1.3"
 }
 
 plugins {
