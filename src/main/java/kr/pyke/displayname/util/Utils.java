@@ -32,7 +32,7 @@ public class Utils {
         updateDisplayName(target, displayName);
 
         String targetName = target.getGameProfile().getName();
-        DisplayName.sendMessage(sender, MESSAGE_TYPE.PERSONAL, String.format("&7%s&f님의 이름을 &7%s&f(으)로 변경하였습니다.", targetName, displayName));
+        DisplayName.sendMessage(sender, MESSAGE_TYPE.PERSONAL, String.format("§7%s§f님의 이름을 §7%s§f(으)로 변경하였습니다.", targetName, displayName));
     }
 
     public static void updateDisplayName(ServerPlayer target, String displayName) {
@@ -49,6 +49,6 @@ public class Utils {
 
         refreshTabList(target);
 
-        DisplayName.sendMessage(target, MESSAGE_TYPE.PERSONAL, String.format("&f이름이 &7%s&f(으)로 변경되었습니다.", displayName));
+        DisplayName.sendMessage(target, MESSAGE_TYPE.PERSONAL, String.format("§f이름이 §7%s§f(으)로 변경되었습니다.", displayName));
     }
 }
