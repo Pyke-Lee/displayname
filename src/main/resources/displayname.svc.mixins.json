@@ -1,0 +1,11 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "kr.pyke.displayname.mixin.svc",
+  "client": [
+    "PlayerStateMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

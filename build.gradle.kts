@@ -7,8 +7,11 @@ object BuildConfig {
     const val FABRIC_LOADER_VERSION: String = "0.19.2"
     const val FABRIC_API_VERSION: String = "0.147.0+26.1.2"
 
-    // https://semver.org/
     var MOD_VERSION: String = "0.1.2"
+
+    const val SIMPLE_VOICE_CHAT_MOD_VERSION: String = "fabric-2.6.16+26.1.2"
+    const val PLASMO_VOICE_API_VERSION: String = "2.1.13"
+    const val PLASMO_VOICE_MOD_VERSION: String = "fabric-26.1-2.1.13"
 }
 
 plugins {
@@ -26,6 +29,16 @@ version = createVersionString()
 
 repositories {
     mavenCentral()
+    maven("https://repo.plasmoverse.com/releases")
+
+    exclusiveContent {
+        forRepository {
+            maven("https://api.modrinth.com/maven")
+        }
+        filter {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 
 dependencies {
@@ -36,6 +49,13 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:6.0.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // Simple Voice Chat
+    compileOnly("maven.modrinth:simple-voice-chat:${BuildConfig.SIMPLE_VOICE_CHAT_MOD_VERSION}")
+
+    // Plasmo Voice
+    compileOnly("su.plo.voice:protocol:${BuildConfig.PLASMO_VOICE_API_VERSION}")
+    compileOnly("maven.modrinth:plasmo-voice:${BuildConfig.PLASMO_VOICE_MOD_VERSION}")
 }
 
 tasks {

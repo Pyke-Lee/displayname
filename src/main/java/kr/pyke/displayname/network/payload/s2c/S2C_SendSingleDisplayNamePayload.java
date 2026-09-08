@@ -2,7 +2,9 @@ package kr.pyke.displayname.network.payload.s2c;
 
 import kr.pyke.displayname.DisplayName;
 import kr.pyke.displayname.client.cache.DisplayNameCache;
+import kr.pyke.displayname.compat.PlasmoCompat;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -24,6 +26,12 @@ public record S2C_SendSingleDisplayNamePayload(UUID uuid, String displayName) im
     );
 
     public static void handle(S2C_SendSingleDisplayNamePayload payload, ClientPlayNetworking.Context context) {
-        context.client().execute(() -> DisplayNameCache.CACHE.put(payload.uuid(), payload.displayName()));
+        context.client().execute(() -> {
+            DisplayNameCache.CACHE.put(payload.uuid(), payload.displayName());
+
+            if (FabricLoader.getInstance().isModLoaded("plasmovoice")) {
+                PlasmoCompat.updateNick(payload.uuid(), payload.displayName());
+            }
+        });
     }
 }
