@@ -4,7 +4,6 @@ import kr.pyke.displayname.command.DisplayNameCommand;
 import kr.pyke.displayname.data.DisplayNameData;
 import kr.pyke.displayname.network.DisplayNamePacket;
 import kr.pyke.displayname.network.packet.s2c.S2C_SendBulkDisplayName;
-import kr.pyke.displayname.registry.ModRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -28,7 +27,5 @@ public class DisplayName implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(DisplayNameCommand::register);
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> S2C_SendBulkDisplayName.send(handler.getPlayer(), DisplayNameData.getServerState(server).getDisplayNames()));
-
-		ModRegistry.register();
 	}
 }

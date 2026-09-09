@@ -8,7 +8,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.saveddata.SavedData;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -35,7 +35,7 @@ public class DisplayNameData extends SavedData {
     }
 
     @Override
-    public @NonNull CompoundTag save(CompoundTag tag) {
+    public @NotNull CompoundTag save(CompoundTag tag) {
         CompoundTag displayNameTag = new CompoundTag();
 
         displayNames.forEach((uuid, displayName) -> displayNameTag.putString(uuid.toString(), displayName));

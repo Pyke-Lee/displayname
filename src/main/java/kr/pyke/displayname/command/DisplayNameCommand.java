@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import kr.pyke.displayname.network.packet.s2c.S2C_OpenChangeDisplayNameScreen;
 import kr.pyke.displayname.util.Utils;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -18,15 +17,22 @@ public class DisplayNameCommand {
     private DisplayNameCommand() { }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext ctx, Commands.CommandSelection selection) {
-        dispatcher.register(Commands.literal("이름변경")
+        dispatcher.register(Commands.literal("displayname")
             .requires(source -> source.hasPermission(2))
             .then(Commands.argument("target", EntityArgument.player())
-                .executes(DisplayNameCommand::openScreenChangeDisplayName)
-
                 .then(Commands.argument("displayName", StringArgumentType.greedyString())
                     .executes(DisplayNameCommand::changeDisplayName)
                 )
             )
+        );
+
+        dispatcher.register(Commands.literal("이름변경")
+                .requires(source -> source.hasPermission(2))
+                .then(Commands.argument("target", EntityArgument.player())
+                        .then(Commands.argument("displayName", StringArgumentType.greedyString())
+                                .executes(DisplayNameCommand::changeDisplayName)
+                        )
+                )
         );
     }
 
@@ -36,14 +42,6 @@ public class DisplayNameCommand {
         String displayName = StringArgumentType.getString(context, "displayName");
 
         Utils.updateDisplayName(target, displayName, serverPlayer);
-
-        return 1;
-    }
-
-    private static int openScreenChangeDisplayName(CommandContext<CommandSourceStack> context) {
-        ServerPlayer serverPlayer = context.getSource().getPlayer();
-
-        S2C_OpenChangeDisplayNameScreen.send(Objects.requireNonNull(serverPlayer));
 
         return 1;
     }

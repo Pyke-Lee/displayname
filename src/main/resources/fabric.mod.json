@@ -6,7 +6,7 @@
 	"description": "This mod allows you to change player display names via commands, seamlessly syncing the new nicknames across chat, tab lists, and nametags in real-time.",
 	"authors": [ "Pyke__Lee" ],
 	"contact": { },
-	"license": "LGPL 3.0",
+	"license": "All rights reserved.",
 	"icon": "assets/displayname/icon.png",
 	"environment": "*",
 	"entrypoints": {

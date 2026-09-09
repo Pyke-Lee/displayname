@@ -1,9 +1,8 @@
 package kr.pyke.displayname.util;
 
-import kr.pyke.PykeLib;
 import kr.pyke.displayname.data.DisplayNameData;
 import kr.pyke.displayname.network.packet.s2c.S2C_SendSingleDisplayName;
-import kr.pyke.util.constants.COLOR;
+import kr.pyke.displayname.type.MESSAGE_TYPE;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +30,7 @@ public class Utils {
         updateDisplayName(target, displayName);
 
         String targetName = target.getGameProfile().getName();
-        PykeLib.sendSystemMessage(sender, COLOR.LIME.getColor(), String.format("&7%s&f님의 이름을 &7%s&f(으)로 변경하였습니다.", targetName, displayName));
+        MESSAGE_TYPE.send(MESSAGE_TYPE.PERSONAL, sender, String.format("§7%s§f님의 이름을 §7%s§f(으)로 변경하였습니다.", targetName, displayName));
     }
 
     public static void updateDisplayName(ServerPlayer target, String displayName) {
@@ -47,6 +46,6 @@ public class Utils {
 
         refreshTabList(target);
 
-        PykeLib.sendSystemMessage(target, COLOR.LIME.getColor(), String.format("&f이름이 &7%s&f(으)로 변경되었습니다.", displayName));
+        MESSAGE_TYPE.send(MESSAGE_TYPE.PERSONAL, target, String.format("§f이름이 §7%s§f(으)로 변경되었습니다.", displayName));
     }
 }
